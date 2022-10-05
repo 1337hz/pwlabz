@@ -14,6 +14,8 @@ export default class ContactUsPage {
     this.commentsInput = page.locator('textarea[name=message]');
     this.resetButton = page.locator('input[type=reset]');
     this.submitButton = page.locator('input[type=submit]');
+    this.errorMessage = page.locator('body');
+    this.thankYouMessage = page.locator('h1');
   }
 
   async goto() {
