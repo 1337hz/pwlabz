@@ -44,4 +44,8 @@ export default class ContactUsPage {
       await expect(this.commentsInput).toHaveValue(comments);
     }
   }
+
+  async waitForThankYouMessage() {
+    await this.page.locator('h1 >> text=Thank You for your Message!', { timeout: 10000 });
+  }
 }

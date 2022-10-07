@@ -13,9 +13,10 @@ test.describe('Contact Us form', () => {
     }
 
     await contactUsPage.fillForm(data)
-    await contactUsPage.resetButton.click();
+    await contactUsPage.submitButton.click();
+    await contactUsPage.waitForThankYouMessage();
 
-    expect(contactUsPage.thankYouMessage).toHaveText
+    await expect(contactUsPage.thankYouMessage).toHaveText('Thank You for your Message!');
   });
 
   test('can clear form', async ({ page }) => {
