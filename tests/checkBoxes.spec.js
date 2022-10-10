@@ -2,18 +2,42 @@ const { test, expect } = require('@playwright/test');
 
 import CheckBoxesPage from '../pages/checkBoxesPage';
 
-test.describe('Contact Us form', () => {
+test.describe('Checkboxes, radio buttons', () => {
 
-  test.skip('can select correct option', async ({ page }) => {
-    const checkBoxesPage = new CheckBoxesPage(page);
-    await checkBoxesPage.goto();
+  test.describe("Drodpowns", () => {
+    test('Dropdown #1 can select correct option', async ({ page }) => {
+      const checkBoxesPage = new CheckBoxesPage(page);
+      await checkBoxesPage.goto();
 
-    await checkBoxesPage.selectFirstDropdownByLabel("C#")
+      await checkBoxesPage.selectFirstDropdownByLabel("C#");
+      expect(await checkBoxesPage.getFirstDropdownValue()).toEqual("c#");
 
-    await page.waitForTimeout(3000)
+      await checkBoxesPage.selectFirstDropdownByLabel("Python");
+      expect(await checkBoxesPage.getFirstDropdownValue()).toEqual("python");
 
-    expect(page.locator('#dropdowm-menu-1').getAttribute("value")).toBe("c#");
-  });
+      await checkBoxesPage.selectFirstDropdownByLabel("SQL");
+      expect(await checkBoxesPage.getFirstDropdownValue()).toEqual("sql");
+
+      await checkBoxesPage.selectFirstDropdownByLabel("JAVA");
+      expect(await checkBoxesPage.getFirstDropdownValue()).toEqual("java");
+    });
+    test('Dropdown #2 can select correct option', async ({ page }) => {
+      const checkBoxesPage = new CheckBoxesPage(page);
+      await checkBoxesPage.goto();
+
+      await checkBoxesPage.selectSecondDropdownByLabel("Eclipse");
+      expect(await checkBoxesPage.getSecondDropdownValue()).toEqual("eclipse");
+
+      await checkBoxesPage.selectSecondDropdownByLabel("Maven");
+      expect(await checkBoxesPage.getSecondDropdownValue()).toEqual("maven");
+
+      await checkBoxesPage.selectSecondDropdownByLabel("TestNG");
+      expect(await checkBoxesPage.getSecondDropdownValue()).toEqual("testng");
+
+      await checkBoxesPage.selectSecondDropdownByLabel("JUnit");
+      expect(await checkBoxesPage.getSecondDropdownValue()).toEqual("junit");
+    });
+  })
 
   test('checkboxes', async ({ page }) => {
     const checkBoxesPage = new CheckBoxesPage(page);

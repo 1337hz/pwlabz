@@ -19,10 +19,14 @@ export default class CheckBoxesPage {
     await this.firstDropdownMenu.selectOption({ label: label });
   }
   async getFirstDropdownValue() {
-    // return await page.$eval('#dropdowm-menu-1', el => el.value)
-    // return (await this.firstDropdownMenu.innerText()).valueOf()
-    const x = await this.firstDropdownMenu.getAttribute("value", { timeout: 3000 });
-    return x
+    return await this.firstDropdownMenu.inputValue();
+  }
+
+  async selectSecondDropdownByLabel(label) {
+    await this.secondDropdownMenu.selectOption({ label: label });
+  }
+  async getSecondDropdownValue() {
+    return await this.secondDropdownMenu.inputValue();
   }
 
   //-------Checkboxes
@@ -36,11 +40,11 @@ export default class CheckBoxesPage {
     return this.page.locator(`text=${value}`);
   }
   async isCheckboxCheckedByLabel(value) {
-    const cb = await this.getCheckboxByLabelValue(value);
+    const cb = await this.getCheckboxByLabel(value);
     return cb.isChecked();
   }
   async uncheckCheckboxByLabel(value) {
-    const cb = await this.getCheckboxByLabelValue(value);
+    const cb = await this.getCheckboxByLabel(value);
     await cb.uncheck();
   }
   //-------Radio buttons
