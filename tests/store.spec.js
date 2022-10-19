@@ -21,7 +21,7 @@ test.describe('Store tests', () => {
     await checkoutPage.proceedThroughGuestCheckout();
     await expect(checkoutPage.checkoutSuccessElement).toBeVisible()
   });
-  test.only('Updates topbar total sum', async ({ page }) => {
+  test('Updates topbar total sum', async ({ page }) => {
     page.on('console', console.log)
     const storePage = new StorePage(page);
     await storePage.goto();
@@ -33,6 +33,31 @@ test.describe('Store tests', () => {
 
     await expect(storePage.topBarTotalElement).toHaveText(priceString);
     await expect(storePage.topBarItemCountElement).toHaveText("1")
-    await page.pause();
+  });
+  test.only('Can validate address on checkout', async ({ page }) => {
+    page.on('console', console.log)
+    const storePage = new StorePage(page);
+    await storePage.goto();
+    await storePage.addItemToCart(PRODUCTS.SHIRT);
+
+    const checkoutPage = new CheckoutPage(page);
+    await checkoutPage.goto();
+
+    await checkoutPage.continueButton.click();
+
+    await expect(checkoutPage.adressValidationError).toBeVisible
+    await expect(checkoutPage.cityValidationError).toBeVisible
+    await expect(checkoutPage.regionValidationError).toBeVisible
+    await expect(checkoutPage.zipValidationError).toBeVisible
+
+    await checkoutPage.addres1Input.fill('addr');
+    await checkoutPage.cityInput.fill('cit3');
+    await checkoutPage.zoneSelect.selectOption('3524');
+    await checkoutPage.postCodeInput.fill('30-3333');
+
+    await expect(checkoutPage.adressValidationError).not.toBeVisible
+    await expect(checkoutPage.cityValidationError).not.toBeVisible
+    await expect(checkoutPage.regionValidationError).not.toBeVisible
+    await expect(checkoutPage.zipValidationError).not.toBeVisible
   });
 })
