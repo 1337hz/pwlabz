@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:chrome:dev": " playwright test --project=chromium --headed",
-    "test:chrome": " playwright test --project=chromium"
+    "test:chrome:dev": "playwright test --project=chromium --headed",
+    "test:chrome": "playwright test --project=chromium",
+    "test:wcag": "playwright test --project=chromium tests/accessibility.spec.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.26.1"
+    "@axe-core/playwright": "^4.5.0",
+    "@playwright/test": "^1.27.1"
   }
 }
